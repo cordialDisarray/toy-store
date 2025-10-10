@@ -1,0 +1,59 @@
+#page {
+    height: calc(100vh - 64px);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+#welcome {
+    flex: 0 0 45%;
+    display: flex;
+    background-color: rgb(255, 205, 112);
+    align-items: center;
+}
+
+h1 {
+    padding: 0;
+    margin: 0 0 1rem 0;
+    text-wrap: nowrap;
+    font-size: 3.5vw;
+}
+
+#spacer {
+    width: 55%;
+    background-color: wheat;
+    height: 100%;
+    display: flex;
+    justify-content: flex-start;
+}
+
+#welcome-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+#showcase {
+    flex: 1 1 55%;
+    background-color: aliceblue;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+#carousel-section {
+    display: flex;
+    align-items: center;
+    margin: 3rem;
+}
+
+#carousel-section button {
+    background-color: rgb(255, 199, 94);
+}
+
+#carousel {
+    background-color: white;
+    text-align: center;
+}

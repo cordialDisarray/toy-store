@@ -1,0 +1,45 @@
+<div id="page">
+    <div id="welcome">
+        <div id="spacer"></div>
+        <div id="welcome-content">
+            <h1>Choose your toy by age!</h1>
+            <div id="age-buttons">
+                <img src="" alt="0-1">
+                <img src="" alt="1-3">
+                <img src="" alt="3-5">
+                <img src="" alt="6-10">
+                <img src="" alt="10+">
+            </div>
+        </div>
+    </div>
+
+    <div id="showcase">
+        <div id="carousel-section">
+            <button mat-icon-button><mat-icon>chevron_left</mat-icon></button>
+            <mat-card id="carousel">
+                <mat-card-title>Best reviewed</mat-card-title>
+
+                <mat-card-content>
+                    <mat-card id="toy-card">
+                        <mat-card-header>
+                            <mat-card-title>Toy name</mat-card-title>
+                        </mat-card-header>
+
+                        <mat-card-content>
+                            <img src="" alt="toy">
+                            <div class="stars">Toy review</div>
+                            <span class="price">Price</span>
+                        </mat-card-content>
+                    </mat-card>
+                </mat-card-content>
+
+            </mat-card>
+            <button mat-icon-button><mat-icon>chevron_right</mat-icon></button>
+        </div>
+
+        <div id="shop-button">
+            <img src="" alt="">
+            <button matButton="elevated" routerLink="/shop">Shop Now</button>
+        </div>
+    </div>
+</div>
