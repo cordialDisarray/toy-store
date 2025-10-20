@@ -1,1 +1,23 @@
-<p>login works!</p>
+<mat-card class="signup-form" appearance="outlined">
+    <mat-card-header>
+        <h1>Please Login</h1>
+    </mat-card-header>
+    <mat-card-content>
+        <mat-form-field class="width-full">
+            <mat-label>Email</mat-label>
+            <input type="email" matInput (change)="updateEmail($event)" (keyup.enter)="doLogin()">
+        </mat-form-field>
+        <mat-form-field class="width-full">
+            <mat-label>Password</mat-label>
+            <input type="password" matInput (change)="updatePassword($event)" (keyup.enter)="doLogin()">
+        </mat-form-field>
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-button (click)="doLogin()" type="button">
+            <i class="fa-solid fa-paper-plane"></i> Login now
+        </button>
+        <a mat-button routerLink="/signup">
+            <i class="fa-solid fa-up-right-from-square"></i> Create an account
+        </a>
+    </mat-card-actions>
+</mat-card>
