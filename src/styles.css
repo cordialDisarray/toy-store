@@ -84,3 +84,5 @@ input.mat-mdc-input-element {
     transform: translateY(1.5px);
     transition: transform 0.3s ease, background-color 0.5 ease;
 }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
