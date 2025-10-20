@@ -1,15 +1,17 @@
-<mat-toolbar color="primary" class="navbar">
+<div class="navbar">
   <div class="nav-left">
-    <span class="logo">Toyz!</span>
-    <button mat-button routerLink="/">Home</button>
-    <button mat-button routerLink="/shop">Shop</button>
+    <img src="/Toyz!.svg" alt="Logo" class="logo-icon" />
+    <ul class="nav-links">
+      <li><a href="#" routerLink="home" class="nav-link">Home</a></li>
+      <li><a href="#" routerLink="shop" class="nav-link">Shop</a></li>
+    </ul>
   </div>
 
   <div class="nav-right">
-    <button mat-button routerLink="/login">Login</button>
-    <button mat-button routerLink="/signup">Signup</button>
+    <button class="button" routerLink="/login">Login</button>
+    <button class="button" routerLink="/signup">Signup</button>
   </div>
-</mat-toolbar>
+</div>
 
 <router-outlet></router-outlet>
 
