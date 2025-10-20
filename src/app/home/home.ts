@@ -15,15 +15,15 @@ import axios from "axios";
 export class Home {
   protected webData = signal('')
 
-  constructor(){
+  constructor() {
     axios.get('https://toy.pequla.com/api/toy')
-    .then
-       (rsp => {
-          console.log(rsp.data);
-  }) 
-  .catch(error => {
-      console.error('Error fetching data:', error);
-  });
-  
+      .then
+      (rsp => {
+        console.log(rsp.data);
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
+
   }
 }
