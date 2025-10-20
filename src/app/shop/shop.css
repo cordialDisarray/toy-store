@@ -1,0 +1,115 @@
+.page {
+    display: flex;
+    flex-direction: row;
+    overflow: auto;
+}
+
+#filter-container {
+    position: sticky;
+    top: 1.5rem;
+    padding: 1.5rem;
+    margin: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    border-radius: 2rem;
+    width: 190px;
+
+    background-color: #BAC4DC;
+}
+
+#price-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#search-and-sort {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 1.5rem;
+    padding: 1.5rem 1.5rem 1.5rem 1.5rem;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+#item-container {
+    flex: 1;
+}
+
+#item-result {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.item-toy-card {
+    height: 400px;
+    flex: 0 1 280px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.item-toy-card img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 0.5rem;
+}
+
+.toggle-button {
+    width: 100%;
+    background: none;
+    border: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.toggle-button span.rotated {
+    transform: rotate(180deg);
+}
+
+.chip-filter {
+    padding: 0px 15px 9px 0px;
+    display: flex;
+    flex-direction: column;
+}
+
+.chip-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.chip {
+  padding: 6px 12px;
+  border-radius: 16px;
+  background-color: #eee;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.2s;
+}
+
+.chip.selected {
+  background-color: #2196f3;
+  color: white;
+}
+
+.chip .remove {
+  margin-left: 6px;
+  font-weight: bold;
+}
+
+.toy-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+}
+

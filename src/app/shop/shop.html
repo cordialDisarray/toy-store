@@ -1,1 +1,123 @@
-<p>shop works!</p>
+<div class="page">
+    <div id="filter-container">
+        <div class="chip-filter">
+            <button class="toggle-button" (click)="showTypes = !showTypes">
+                <span class="filter-label">Type</span>
+                <span [class.rotated]="showTypes"><mat-icon>keyboard_arrow_down</mat-icon></span>
+            </button>
+
+            @if (showTypes) {
+            <div class="chip-filter">
+                <mat-chip-listbox [formControl]="typeControl" multiple>
+                    @for (type of types; track type.typeId) {
+                    <mat-chip-option [value]="type">
+                        {{ type.name }}
+                    </mat-chip-option>
+                    }
+                </mat-chip-listbox>
+            </div>
+            }
+        </div>
+
+        <div id="gender-radio">
+            <span class="filter-label">Gender</span>
+            <mat-radio-group [formControl]="genderControl">
+                <mat-radio-button value="svi">Any</mat-radio-button>
+                <mat-radio-button value="devojčica">Girl</mat-radio-button>
+                <mat-radio-button value="dečak">Boy</mat-radio-button>
+            </mat-radio-group>
+        </div>
+
+        <div class="chip-filter">
+            <button class="toggle-button" (click)="showAgeGroups = !showAgeGroups">
+                <span class="filter-label">Age</span>
+                <span [class.rotated]="showAgeGroups"><mat-icon>keyboard_arrow_down</mat-icon></span>
+            </button>
+
+            @if (showAgeGroups) {
+            <div class="chip-filter">
+                <mat-chip-listbox [formControl]="ageGroupControl" multiple>
+                    <mat-chip-option value="0-2">0-2</mat-chip-option>
+                    <mat-chip-option value="3-5">3-5</mat-chip-option>
+                    <mat-chip-option value="6-9">6-9</mat-chip-option>
+                    <mat-chip-option value="10+">10+</mat-chip-option>
+                </mat-chip-listbox>
+            </div>
+            }
+        </div>
+
+        <span class="filter-label">Price</span>
+        <div id="price-container">
+            <!-- This will show the cheapest toy price -->
+            <p>min</p>
+            <mat-slider>
+                <!-- Same story as the chips -->
+                <input matSliderStartThumb>
+                <input matSliderEndThumb>
+            </mat-slider>
+            <p>max</p>
+            <!-- This will show the most expensive toy price -->
+        </div>
+    </div>
+
+    <div id="item-container">
+        <div id="search-and-sort">
+            <div id="search-container">
+                <mat-form-field class="custom-rounded-styling">
+                    <mat-label>Search</mat-label>
+                    <input matInput type="search" placeholder="Type to search">
+                    <mat-icon matSuffix>search</mat-icon>
+                </mat-form-field>
+            </div>
+
+            <div id="sort-container">
+                <mat-form-field class="custom-rounded-styling">
+                    <mat-label>Sort by</mat-label>
+                    <mat-select>
+                        <mat-option value="Price">Price</mat-option>
+                        <mat-option value="Rating">Rating</mat-option>
+                        <mat-option value="AgeGroup">Age</mat-option>
+                        <mat-option value="Category">Category</mat-option>
+                        <mat-option value="Gender">Gender</mat-option>
+                        <mat-option value="Name">Name</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <button mat-flat-button>ASC/DESC</button>
+        </div>
+
+        <div id="item-result">
+            @for(toy of filteredToys; track toy.toyId){
+            <mat-card class="item-toy-card custom-rounded-styling">
+                <mat-card-header>
+                    <mat-card-title>{{toy.name}}</mat-card-title>
+                </mat-card-header>
+
+                <mat-card-content class="card-body">
+                    <img [src]="toy.imageUrl" alt="{{toy.name}}">
+
+                    <mat-card-subtitle>
+                        <div class="description">
+                            <span class="description-text">{{toy.description}}</span>
+                        </div>
+                    </mat-card-subtitle>
+                    <div class="stars">Toy review</div>
+                    <div class="age-group">
+                        <img src="" alt="age">
+                    </div>
+
+                    <div class="price-container">
+                        <span class="price">{{toy.price}} RSD</span>
+
+                        <button class="buy-btn button" type="button" (click)="addToCart(toy)">
+                            <mat-icon>add_shopping_cart</mat-icon>
+                            <span>Buy</span>
+                        </button>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+            }
+        </div>
+    </div>
+</div>
