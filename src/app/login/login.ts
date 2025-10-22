@@ -1,44 +1,51 @@
-import { Component } from '@angular/core';
-import {MatInputModule} from '@angular/material/input';
+import { Component, inject, signal } from '@angular/core';
+import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
+import { NgIf } from '@angular/common';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-import { RouterLink, Router, ActivatedRoute } from '@angular/router';
-import { UserService } from '../../services/user.service';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-login',
-  imports: [MatCardModule, RouterLink, MatButtonModule, MatInputModule],
+  standalone: true,
+  imports: [
+    ReactiveFormsModule, NgIf,
+    MatFormFieldModule, MatInputModule, MatButtonModule,
+    MatCheckboxModule, MatIconModule
+  ],
   templateUrl: './login.html',
   styleUrl: './login.css'
 })
-export class Login {
-  public email: string = ''
-  public password: string = ''
- // public userService: UserService
 
-  constructor(private router: Router, private route: ActivatedRoute) {
-   // this.userService = UserService.getInstance()
-  }
+export class Login{
+  private fb = inject(FormBuilder);
+  submitting = signal(false);
+  hidePw = signal(true);
 
-  public updateEmail(e: any) {
-    this.email = e.target.value
-  }
+  form = this.fb.group({
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required, Validators.minLength(8)]],
+    remember: [false]
+  });
 
-  public updatePassword(e: any) {
-    this.password = e.target.value
-  }
+  get f() { return this.form.controls; }
 
-  public doLogin() {
-    if (this.email == '' || this.password == '') {
-      alert('Username or password is empty')
-      return
+  async submit() {
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
     }
-
+    this.submitting.set(true);
     try {
-   //   this.userService.login(this.email, this.password)
-      this.router.navigate(['/profile'], { relativeTo: this.route })
-    } catch (e) {
-      alert(e)
+      const payload = this.form.getRawValue(); // { email, password, remember }
+      console.log('Logging in', payload);
+      // call your API here
+      // await AuthService.login(payload)
+      // if (payload.remember) localStorage.setItem('email', payload.email)
+    } finally {
+      this.submitting.set(false);
     }
   }
 }
