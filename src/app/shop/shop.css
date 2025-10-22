@@ -6,15 +6,12 @@
 
 #filter-container {
     position: sticky;
-    top: 1.5rem;
+    gap: 1.5rem;
     padding: 1.5rem;
-    margin: 1.5rem;
     display: flex;
     flex-direction: column;
     border-radius: 2rem;
-    width: 190px;
-
-    background-color: #BAC4DC;
+    max-width: 250px;
 }
 
 #price-container {
@@ -28,7 +25,7 @@
     flex-direction: row;
     justify-content: flex-start;
     gap: 1.5rem;
-    padding: 1.5rem 1.5rem 1.5rem 1.5rem;
+    padding: 1.5rem;
     flex-wrap: wrap;
     align-items: center;
 }
@@ -63,8 +60,6 @@
     width: 100%;
     background: none;
     border: none;
-    font-weight: 600;
-    font-size: 1.1rem;
     cursor: pointer;
     display: flex;
     justify-content: space-between;
@@ -75,41 +70,55 @@
     transform: rotate(180deg);
 }
 
-.chip-filter {
-    padding: 0px 15px 9px 0px;
+.toy-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 16px;
+}
+
+.filter-label {
+    font-size: 1.3rem;
+    color: #717fa1;
+}
+
+.price-filter {
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
+    gap: 0.8rem;
 }
 
-.chip-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 16px;
+#min-price-filter,
+#max-price-filter {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
-.chip {
-  padding: 6px 12px;
-  border-radius: 16px;
-  background-color: #eee;
-  cursor: pointer;
-  user-select: none;
-  transition: background-color 0.2s;
+.price-label {
+    width: 30px;
+    font-weight: 500;
 }
 
-.chip.selected {
-  background-color: #2196f3;
-  color: white;
+.price-input {
+    width: 7rem;
+    padding: 0.5rem;
+    border: none;
+    border-radius: 1.5rem;
 }
 
-.chip .remove {
-  margin-left: 6px;
-  font-weight: bold;
+.outer-filter-style {
+    padding: 1.2rem 1.4rem 1.2rem 1rem;
+    display: flex;
+    flex-direction: column;
+    border: #a5b1ce 3px dashed;
+    background-color: #0023640e;
+    border-radius: 1.5rem;
+    box-shadow: #0013411e 0px 4px 6px;
 }
 
-.toy-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 16px;
+.chip-list {
+    display: flex;
+    flex-direction: column;
+    padding: 0.3rem;
 }
-
