@@ -32,11 +32,12 @@ export class Cart implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private cartService: CartService) {}
+  constructor(private cartService: CartService) { }
 
   ngOnInit() {
-    const items = this.cartService.getItems();
-    this.dataSource.data = items;
+    this.dataSource.data = this.cartService.getItems()
+    this.dataSource.filterPredicate = (data: ToyModel, filter: string) =>
+      data.name.toLocaleLowerCase().includes(filter) || data.description.toLowerCase().includes(filter)
   }
 
   ngAfterViewInit() {
@@ -46,10 +47,6 @@ export class Cart implements OnInit, AfterViewInit {
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
-    
-    this.dataSource.filterPredicate = (data: ToyModel, filter: string) =>
-      data.name.toLowerCase().includes(filter) || data.description.toLowerCase().includes(filter);
-
-    this.dataSource.filter = filterValue;
+    this.dataSource.filter = filterValue
   }
 }

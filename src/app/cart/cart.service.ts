@@ -5,8 +5,16 @@ import { ToyModel } from '../models/toy.model';
 export class CartService {
   private cartItems: ToyModel[] = [];
 
+  constructor() {
+    const saved = localStorage.getItem('cart')
+    if(saved) {
+      this.cartItems = JSON.parse(saved)
+    }
+  }
+
   addItem(item: ToyModel): void {
     this.cartItems.push(item);
+    this.save()
   }
 
   getItems(): ToyModel[] {
@@ -15,5 +23,10 @@ export class CartService {
 
   clear(): void {
     this.cartItems = [];
+    this.save()
+  }
+
+  private save() {
+    localStorage.setItem('cart', JSON.stringify(this.cartItems))
   }
 }
