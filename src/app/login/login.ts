@@ -6,6 +6,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
+import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
+
+
 
 @Component({
   selector: 'app-login',
@@ -28,7 +32,11 @@ export class Login{
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(8)]],
     remember: [false]
+
   });
+
+    private auth = inject(AuthService);
+    private router = inject(Router);
 
   get f() { return this.form.controls; }
 
@@ -47,5 +55,11 @@ export class Login{
     } finally {
       this.submitting.set(false);
     }
+    
+    if (this.form.invalid) return;
+  const { email, password } = this.form.getRawValue();
+  const ok = this.auth.login(email!, password!);
+  if (ok) this.router.navigate(['/account']);
+  else alert('Invalid email or password');
   }
 }
