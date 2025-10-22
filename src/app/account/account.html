@@ -1,1 +1,12 @@
-<p>account works!</p>
+<div *ngIf="user(); else notLogged">
+  <h1>Welcome, {{ user()?.name }} {{ user()?.surname }}</h1>
+  <p><strong>Email:</strong> {{ user()?.email }}</p>
+  <p><strong>Phone:</strong> {{ user()?.phone }}</p>
+  <p><strong>Address:</strong> {{ user()?.address }}</p>
+
+  <button mat-raised-button color="warn" (click)="logout()">Logout</button>
+</div>
+
+<ng-template #notLogged>
+  <p>You are not logged in.</p>
+</ng-template>

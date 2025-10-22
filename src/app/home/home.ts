@@ -3,9 +3,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import axios from "axios";
-import { ToyService } from '../../services/toy.service';
+import { ToyService } from '../services/toy.service';
 import { NgFor, NgIf } from '@angular/common';
-import { ToyModel } from '../../models/toy.model';
+import { ToyModel } from '../models/toy.model';
 
 
 @Component({

@@ -5,6 +5,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { NgIf, NgFor } from '@angular/common';
+import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 // simple cross field validator
 function passwordsMatch(group: AbstractControl): ValidationErrors | null {
@@ -61,31 +63,34 @@ export class Signup {
   get pwg() { return (this.form.get('passwordGroup') as FormGroup).controls as any; }
   get addr() { return (this.form.get('address') as FormGroup).controls as any; }
 
+  private auth = inject(AuthService);
+  private router = inject(Router);
+
   async submit() {
-    if (this.form.invalid) {
-      this.form.markAllAsTouched();
-      return;
-    }
-    this.submitting.set(true);
-    try {
-      // prepare flat payload or keep nested, up to your API
-      const payload = {
-        name: this.f.name.value,
-        surname: this.f.surname.value,
-        email: this.f.email.value,
-        password: this.pwg.password.value,
-        address: {
-          country: this.addr.country.value,
-          street: this.addr.street.value,
-          number: this.addr.number.value
-        }
-      };
-      console.log('Submitting', payload);
-      // call your API service here
-      // await AuthService.signup(payload)
-    } finally {
-      this.submitting.set(false);
-    }
+  if (this.form.invalid) {
+    this.form.markAllAsTouched();
+    return;
   }
+
+  this.submitting.set(true);
+  try {
+    const v = this.form.getRawValue();
+    this.auth.signup({
+      name: v.name!,
+      surname: v.surname!,
+      email: v.email!,
+      password: v.passwordGroup.password!,   // confirm is checked by validator
+      phone: 'N/A',
+      address: `${v.address.street} ${v.address.number}, ${v.address.country}`
+    });
+
+    // after signup(), currentUser should be set and you are "logged in"
+    this.router.navigate(['/account']);
+  } catch (err: any) {
+    console.error(err?.message ?? err);
+  } finally {
+    this.submitting.set(false);
+  }
+}
 }
 
