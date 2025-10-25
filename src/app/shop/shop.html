@@ -2,7 +2,7 @@
     <div id="filter-container">
         <div class="outer-filter-style">
             <button class="toggle-button" (click)="showTypes = !showTypes">
-                <span class="filter-label"><strong>Type</strong></span>
+                <span class="filter-label"><strong>Tip</strong></span>
                 <span [class.rotated]="showTypes"><mat-icon>keyboard_arrow_down</mat-icon></span>
             </button>
 
@@ -20,17 +20,17 @@
         </div>
 
         <div id="gender-radio" class="outer-filter-style">
-            <span class="filter-label"><strong>Gender</strong></span>
+            <span class="filter-label"><strong>Pol</strong></span>
             <mat-radio-group [formControl]="genderControl">
-                <mat-radio-button value="svi">Any</mat-radio-button>
-                <mat-radio-button value="devojčica">Girl</mat-radio-button>
-                <mat-radio-button value="dečak">Boy</mat-radio-button>
+                <mat-radio-button value="svi">Svi</mat-radio-button>
+                <mat-radio-button value="devojčica">Devojčica</mat-radio-button>
+                <mat-radio-button value="dečak">Dečak</mat-radio-button>
             </mat-radio-group>
         </div>
 
         <div class="outer-filter-style">
             <button class="toggle-button" (click)="showAgeGroups = !showAgeGroups">
-                <span class="filter-label"><strong>Age</strong></span>
+                <span class="filter-label"><strong>Uzrast</strong></span>
                 <span [class.rotated]="showAgeGroups"><mat-icon>keyboard_arrow_down</mat-icon></span>
             </button>
 
@@ -47,7 +47,7 @@
         </div>
 
         <div class="outer-filter-style">
-            <span class="filter-label"><strong>Price</strong></span>
+            <span class="filter-label"><strong>Cena</strong></span>
             <div class="price-filter">
                 <div id="min-price-filter"><span class="price-label">Min</span>
                     <input type="number" class="price-input" step="100" [formControl]="minPriceControl"
@@ -68,7 +68,7 @@
         <div id="search-and-sort">
             <div id="search-container">
                 <mat-form-field class="custom-rounded-styling">
-                    <mat-label>Search</mat-label>
+                    <mat-label>Pretraži</mat-label>
                     <input matInput type="search" [formControl]="searchControl" placeholder="Type to search">
                     <mat-icon matSuffix>search</mat-icon>
                 </mat-form-field>
@@ -76,13 +76,13 @@
 
             <div id="sort-container">
                 <mat-form-field class="custom-rounded-styling">
-                    <mat-label>Sort by</mat-label>
+                    <mat-label>Sortiraj po</mat-label>
                     <mat-select [formControl]="sortControl">
-                        <mat-option value="name">Name</mat-option>
-                        <mat-option value="price">Price</mat-option>
-                        <mat-option value="type.name">Category</mat-option>
-                        <mat-option value="ageGroup.name">Age</mat-option>
-                        <mat-option value="targetGroup">Gender</mat-option>
+                        <mat-option value="name">Naziv</mat-option>
+                        <mat-option value="price">Cena</mat-option>
+                        <mat-option value="type.name">Kategorija</mat-option>
+                        <mat-option value="ageGroup.name">Uzrast</mat-option>
+                        <mat-option value="targetGroup">Pol</mat-option>
                     </mat-select>
                 </mat-form-field>
             </div>
@@ -107,7 +107,7 @@
                             <span class="description-text">{{toy.description}}</span>
                         </div>
                     </mat-card-subtitle>
-                    <div class="stars">Toy review</div>
+                    <div class="stars">Recenzija</div>
                     <div class="age-group">
                         <img src="" alt="age">
                     </div>
@@ -117,7 +117,7 @@
 
                         <button class="buy-btn button" type="button" (click)="addToCart(toy)">
                             <mat-icon>add_shopping_cart</mat-icon>
-                            <span>Buy</span>
+                            <span>Kupi</span>
                         </button>
                     </div>
                 </mat-card-content>

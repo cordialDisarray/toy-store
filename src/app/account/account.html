@@ -1,12 +1,14 @@
-<div *ngIf="user(); else notLogged">
-  <h1>Welcome, {{ user()?.name }} {{ user()?.surname }}</h1>
+<div style="display:grid;place-items:start;min-height:60vh;padding:16px">
+<div *ngIf="user(); else notLogged" class="wrap">
+  <h1>Nalog</h1>
+  <p><strong>Ime:</strong> {{ user()?.name }} {{ user()?.surname }}</p>
   <p><strong>Email:</strong> {{ user()?.email }}</p>
-  <p><strong>Phone:</strong> {{ user()?.phone }}</p>
-  <p><strong>Address:</strong> {{ user()?.address }}</p>
-
-  <button mat-raised-button color="warn" (click)="logout()">Logout</button>
+  <p><strong>Adresa:</strong> {{ user()?.address || '—' }}</p>
+  <p><strong>Telefon:</strong> {{ user()?.phone || '—' }}</p>
+  <button mat-raised-button color="warn" (click)="logout()">Odjava</button>
 </div>
 
 <ng-template #notLogged>
-  <p>You are not logged in.</p>
+  <p>Niste prijavljeni.</p>
 </ng-template>
+</div>

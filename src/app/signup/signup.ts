@@ -8,7 +8,6 @@ import { NgIf, NgFor } from '@angular/common';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
-// simple cross field validator
 function passwordsMatch(group: AbstractControl): ValidationErrors | null {
   const pw = group.get('password')?.value || '';
   const cpw = group.get('confirmPassword')?.value || '';
@@ -18,25 +17,24 @@ function passwordsMatch(group: AbstractControl): ValidationErrors | null {
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [
-    ReactiveFormsModule, NgIf, NgFor,
-    MatFormFieldModule, MatInputModule, MatSelectModule, MatButtonModule
-  ],
+  imports: [ReactiveFormsModule, NgIf, NgFor, MatFormFieldModule, MatInputModule, MatSelectModule, MatButtonModule],
   templateUrl: './signup.html',
   styleUrl: './signup.css'
 })
 export class Signup {
   private fb = inject(FormBuilder);
+  private auth = inject(AuthService);
+  private router = inject(Router);
+
   submitting = signal(false);
 
-  // countries, keep short for demo
   countries = [
-    { code: 'RS', name: 'Serbia' },
-    { code: 'HR', name: 'Croatia' },
-    { code: 'BA', name: 'Bosnia and Herzegovina' },
-    { code: 'ME', name: 'Montenegro' },
-    { code: 'MK', name: 'North Macedonia' },
-    { code: 'SI', name: 'Slovenia' }
+    { code: 'BG', name: 'Beograd' },
+    { code: 'NS', name: 'Novi Sad' },
+    { code: 'NI', name: 'Niš' },
+    { code: 'SU', name: 'Subotica' },
+    { code: 'KG', name: 'Kragujevac' },
+    { code: 'VA', name: 'Valjevo' }
   ];
 
   form: FormGroup = this.fb.group({
@@ -44,16 +42,11 @@ export class Signup {
     surname: ['', [Validators.required, Validators.maxLength(50)]],
     email: ['', [Validators.required, Validators.email]],
     passwordGroup: this.fb.group({
-      password: ['', [
-        Validators.required,
-        Validators.minLength(8),
-        // at least one letter and one number, adjust as needed
-        Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d).+$/)
-      ]],
+      password: ['', [Validators.required, Validators.minLength(8), Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d).+$/)]],
       confirmPassword: ['', Validators.required]
     }, { validators: passwordsMatch }),
     address: this.fb.group({
-      country: ['', Validators.required],
+      city: ['', Validators.required],
       street: ['', Validators.required],
       number: ['', [Validators.required, Validators.pattern(/^\d+[A-Za-z]?$/)]]
     })
@@ -63,34 +56,24 @@ export class Signup {
   get pwg() { return (this.form.get('passwordGroup') as FormGroup).controls as any; }
   get addr() { return (this.form.get('address') as FormGroup).controls as any; }
 
-  private auth = inject(AuthService);
-  private router = inject(Router);
-
   async submit() {
-  if (this.form.invalid) {
-    this.form.markAllAsTouched();
-    return;
-  }
-
-  this.submitting.set(true);
-  try {
-    const v = this.form.getRawValue();
-    this.auth.signup({
-      name: v.name!,
-      surname: v.surname!,
-      email: v.email!,
-      password: v.passwordGroup.password!,   // confirm is checked by validator
-      phone: 'N/A',
-      address: `${v.address.street} ${v.address.number}, ${v.address.country}`
-    });
-
-    // after signup(), currentUser should be set and you are "logged in"
-    this.router.navigate(['/account']);
-  } catch (err: any) {
-    console.error(err?.message ?? err);
-  } finally {
-    this.submitting.set(false);
+    if (this.form.invalid) { this.form.markAllAsTouched(); return; }
+    this.submitting.set(true);
+    try {
+      const v = this.form.getRawValue();
+      this.auth.signup({
+        name: v.name!,
+        surname: v.surname!,
+        email: v.email!,
+        password: v.passwordGroup.password!,
+        phone: '',
+        address: `${v.address.street} ${v.address.number}, ${v.address.city}`
+      });
+      this.router.navigate(['/account']);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      this.submitting.set(false);
+    }
   }
 }
-}
-

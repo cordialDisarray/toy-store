@@ -5,14 +5,13 @@ export interface User {
   surname: string;
   email: string;
   password: string;
-  phone: string;
-  address: string;
+  phone?: string;
+  address?: string;
   favoriteTypes?: string[];
 }
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  // logged user signal (null if not logged)
   currentUser = signal<User | null>(null);
 
   constructor() {
@@ -20,27 +19,29 @@ export class AuthService {
     if (saved) this.currentUser.set(JSON.parse(saved));
   }
 
-  signup(user: User): void {
-  const users = this.getAllUsers();
-  if (users.some(u => u.email === user.email)) {
-    throw new Error('User with this email already exists');
+  private list(): User[] {
+    return JSON.parse(localStorage.getItem('users') || '[]');
   }
-  users.push(user);
-  localStorage.setItem('users', JSON.stringify(users));
-  // log in immediately
-  this.currentUser.set(user);
-  localStorage.setItem('currentUser', JSON.stringify(user));
-}
+  private saveList(users: User[]) {
+    localStorage.setItem('users', JSON.stringify(users));
+  }
 
-isLoggedIn(): boolean {
-  return !!this.currentUser();
-}
+  signup(user: User): void {
+    const users = this.list();
+    if (users.some(u => u.email === user.email)) {
+      throw new Error('User with this email already exists');
+    }
+    users.push(user);
+    this.saveList(users);
+    this.currentUser.set(user);
+    localStorage.setItem('currentUser', JSON.stringify(user));
+  }
+
   login(email: string, password: string): boolean {
-    const users = this.getAllUsers();
-    const found = users.find(u => u.email === email && u.password === password);
-    if (!found) return false;
-    this.currentUser.set(found);
-    localStorage.setItem('currentUser', JSON.stringify(found));
+    const u = this.list().find(x => x.email === email && x.password === password);
+    if (!u) return false;
+    this.currentUser.set(u);
+    localStorage.setItem('currentUser', JSON.stringify(u));
     return true;
   }
 
@@ -49,20 +50,21 @@ isLoggedIn(): boolean {
     localStorage.removeItem('currentUser');
   }
 
-  getAllUsers(): User[] {
-    return JSON.parse(localStorage.getItem('users') || '[]');
-  }
-
-  updateProfile(data: Partial<User>): void {
+  updateProfile(patch: Partial<User>): void {
     const user = this.currentUser();
     if (!user) return;
-    const updated = { ...user, ...data };
-    const users = this.getAllUsers().map(u => 
-      u.email === user.email ? updated : u
-    );
-    localStorage.setItem('users', JSON.stringify(users));
+    const updated = { ...user, ...patch };
+    const arr = this.list().map(u => u.email === user.email ? updated : u);
+    this.saveList(arr);
     this.currentUser.set(updated);
     localStorage.setItem('currentUser', JSON.stringify(updated));
   }
 
+  isLoggedIn(): boolean {
+    return !!this.currentUser();
+  }
+
+  getAllUsers(): User[] {
+    return this.list();
+  }
 }
