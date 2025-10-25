@@ -1,14 +1,5 @@
 import { Injectable, signal } from '@angular/core';
-
-export interface User {
-  name: string;
-  surname: string;
-  email: string;
-  password: string;
-  phone?: string;
-  address?: string;
-  favoriteTypes?: string[];
-}
+import { User } from '../models/user.model';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -26,19 +17,24 @@ export class AuthService {
     localStorage.setItem('users', JSON.stringify(users));
   }
 
+  private norm(email: string) { return email.trim().toLowerCase(); }
+
   signup(user: User): void {
     const users = this.list();
-    if (users.some(u => u.email === user.email)) {
+    const email = this.norm(user.email);
+    if (users.some(u => this.norm(u.email) === email)) {
       throw new Error('User with this email already exists');
     }
-    users.push(user);
+    const record: User = { ...user, email };
+    users.push(record);
     this.saveList(users);
-    this.currentUser.set(user);
-    localStorage.setItem('currentUser', JSON.stringify(user));
+    this.currentUser.set(record);
+    localStorage.setItem('currentUser', JSON.stringify(record));
   }
 
   login(email: string, password: string): boolean {
-    const u = this.list().find(x => x.email === email && x.password === password);
+    const e = this.norm(email);
+    const u = this.list().find(x => this.norm(x.email) === e && x.password === password);
     if (!u) return false;
     this.currentUser.set(u);
     localStorage.setItem('currentUser', JSON.stringify(u));
@@ -51,11 +47,21 @@ export class AuthService {
   }
 
   updateProfile(patch: Partial<User>): void {
-    const user = this.currentUser();
-    if (!user) return;
-    const updated = { ...user, ...patch };
-    const arr = this.list().map(u => u.email === user.email ? updated : u);
-    this.saveList(arr);
+    const current = this.currentUser();
+    if (!current) return;
+
+    const users = this.list();
+    const nextEmail = patch.email ? this.norm(patch.email) : current.email;
+
+    if (nextEmail !== current.email) {
+      const exists = users.some(u => this.norm(u.email) === nextEmail);
+      if (exists) throw new Error('A user with this email already exists');
+    }
+
+    const updated: User = { ...current, ...patch, email: nextEmail };
+    const updatedList = users.map(u => this.norm(u.email) === this.norm(current.email) ? updated : u);
+
+    this.saveList(updatedList);
     this.currentUser.set(updated);
     localStorage.setItem('currentUser', JSON.stringify(updated));
   }

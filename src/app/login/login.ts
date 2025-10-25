@@ -38,9 +38,9 @@ export class Login {
       const { email, password } = this.form.getRawValue();
       const ok = this.auth.login(email!, password!);
       if (ok) {
-        this.router.navigate(['/account']);
+        this.router.navigate(['/shop']);
       } else {
-        alert('Invalid email or password');
+        alert('Pogresan email ili lozinka');
       }
     } finally {
       this.submitting.set(false);

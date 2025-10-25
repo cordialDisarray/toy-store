@@ -69,7 +69,7 @@ export class Signup {
         phone: '',
         address: `${v.address.street} ${v.address.number}, ${v.address.city}`
       });
-      this.router.navigate(['/account']);
+      this.router.navigate(['/shop']);
     } catch (err) {
       console.error(err);
     } finally {

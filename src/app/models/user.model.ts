@@ -1,12 +1,11 @@
-export interface UserModel {
-                    firstName: string
-                    lastName:string
-                    email: string
-                    phone: string
-                    password: string
-                    address: string
-                    city: string
-                    state: string
-                    toy: string
-                    data: []
+export interface User {
+name: string;
+  surname: string;
+  email: string;
+  password: string;
+  phone?: string;
+  address?: string;
+  city?: string;
+  favouriteType?: string;   
+  data?: any[];             
 }

@@ -2,17 +2,32 @@
   <div class="nav-left">
     <img src="/Toyz!.svg" alt="Logo" class="logo-icon" />
     <ul class="nav-links">
-      <li><a href="#" routerLink="home" class="nav-link">Home</a></li>
-      <li><a href="#" routerLink="shop" class="nav-link">Shop</a></li>
+      <li><a routerLink="/home" class="nav-link">Home</a></li>
+      <li><a routerLink="/shop" class="nav-link">Shop</a></li>
     </ul>
   </div>
 
   <div class="nav-right">
-    <button class="button" routerLink="/login">Login</button>
-    <button class="button" routerLink="/signup">Signup</button>
+    <!-- guest -->
+    <ng-container *ngIf="!auth.isLoggedIn(); else loggedIn">
+      <button class="button" routerLink="/login">Login</button>
+      <button class="button" routerLink="/signup">Signup</button>
+    </ng-container>
+
+    <!-- logged in -->
+    <ng-template #loggedIn>
+      <!-- login -> logout -->
+      <button class="button" (click)="logout()">Logout</button>
+
+      <!-- signup -> Moj nalog dropdown -->
+      <button class="button" [matMenuTriggerFor]="accountMenu">Moj nalog</button>
+      <mat-menu #accountMenu="matMenu">
+        <button mat-menu-item (click)="goAccount()">Izmeni nalog</button>
+        <button mat-menu-item (click)="goFavs()">Omiljene igračke</button>
+        <button mat-menu-item (click)="goOrders()">Prošle porudžbine</button>
+      </mat-menu>
+    </ng-template>
   </div>
 </div>
 
 <router-outlet></router-outlet>
-
-<router-outlet />
