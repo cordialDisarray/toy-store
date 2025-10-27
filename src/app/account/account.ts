@@ -1,6 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
-import { NgIf } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -13,7 +12,6 @@ import { Router } from '@angular/router';
   standalone: true,
   imports: [
     ReactiveFormsModule,
-    NgIf,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule
@@ -98,4 +96,5 @@ export class Account {
     this.auth.logout();
     this.router.navigate(['/login']);
   }
+  
 }

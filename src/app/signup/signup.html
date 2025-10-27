@@ -1,6 +1,6 @@
 <div class="auth-wrap">
   <div class="auth-card">
-    
+
     <form [formGroup]="form" (ngSubmit)="submit()" class="auth-form">
       <h1>Kreiraj nalog</h1>
 
@@ -9,21 +9,21 @@
         <mat-form-field appearance="outline">
           <mat-label>Ime</mat-label>
           <input matInput formControlName="name" />
-          <mat-error *ngIf="f.name.touched && f.name.hasError('required')">Obavezno polje!</mat-error>
+          @if (f.name.touched && f.name.hasError('required')) {<mat-error>Obavezno polje!</mat-error>}
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <mat-label>Prezime</mat-label>
           <input matInput formControlName="surname" />
-          <mat-error *ngIf="f.surname.touched && f.surname.hasError('required')">Obavezno polje!</mat-error>
+          @if (f.surname.touched && f.surname.hasError('required')) {<mat-error>Obavezno polje!</mat-error>}
         </mat-form-field>
       </div>
 
       <mat-form-field appearance="outline">
         <mat-label>Email</mat-label>
         <input matInput type="email" formControlName="email" />
-        <mat-error *ngIf="f.email.touched && f.email.hasError('required')">Obavezno polje!</mat-error>
-        <mat-error *ngIf="f.email.touched && f.email.hasError('email')">Vaša email adresa nije tačna!</mat-error>
+        @if (f.email.touched && f.email.hasError('required')) {<mat-error>Obavezno polje!</mat-error>}
+        @if (f.email.touched && f.email.hasError('email')) {<mat-error>Vaša email adresa nije tačna!</mat-error>}
       </mat-form-field>
 
       <div formGroupName="passwordGroup" class="row">
@@ -31,18 +31,21 @@
           <mat-label>Lozinka</mat-label>
           <input matInput type="password" formControlName="password" />
           <mat-hint class="pw-hint">8+ karaktera, koristite slova i brojeve.</mat-hint>
-          <mat-error *ngIf="pwg.password.touched && pwg.password.hasError('required')">Obavezno polje!</mat-error>
-          <mat-error *ngIf="pwg.password.touched && pwg.password.hasError('minlength')">Vaša lozinka je suviše kratka!</mat-error>
-          <mat-error *ngIf="pwg.password.touched && pwg.password.hasError('pattern')">Koristite slova i brojeve.</mat-error>
+          @if (pwg.password.touched && pwg.password.hasError('required'))
+          {<mat-error>Obavezno polje!</mat-error>}
+          @if (pwg.password.touched && pwg.password.hasError('minlength'))
+          {<mat-error>Vaša lozinka je suviše kratka!</mat-error>}
+          @if (pwg.password.touched && pwg.password.hasError('pattern'))
+          {<mat-error>Koristite slova i brojeve.</mat-error>}
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <mat-label>Potvrdite lozinku</mat-label>
           <input matInput type="password" formControlName="confirmPassword" />
-          <mat-error *ngIf="pwg.confirmPassword.touched && pwg.confirmPassword.hasError('required')">Obavezno polje!</mat-error>
-          <mat-error *ngIf="form.get('passwordGroup')?.touched && form.get('passwordGroup')?.hasError('passwordMismatch')">
-            Šifre se ne podudaraju!
-          </mat-error>
+          @if (pwg.confirmPassword.touched && pwg.confirmPassword.hasError('required'))
+          {<mat-error>Obavezno polje!</mat-error>}
+          @if (form.get('passwordGroup')?.touched && form.get('passwordGroup')?.hasError('passwordMismatch'))
+          {<mat-error>Šifre se ne podudaraju!</mat-error>}
         </mat-form-field>
       </div>
 
@@ -50,22 +53,25 @@
         <mat-form-field appearance="outline">
           <mat-label>Grad</mat-label>
           <mat-select formControlName="city">
-            <mat-option *ngFor="let c of countries" [value]="c.code">{{ c.name }}</mat-option>
+            @for (c of countries; track c.code)
+            {<mat-option [value]="c.code">{{ c.name }}</mat-option>}
           </mat-select>
-          <mat-error *ngIf="addr.city.touched && addr.city.hasError('required')">Obavezno polje!</mat-error>
+          @if (addr.city.touched && addr.city.hasError('required')) {<mat-error>Obavezno polje!</mat-error>}
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <mat-label>Ulica</mat-label>
           <input matInput formControlName="street" />
-          <mat-error *ngIf="addr.street.touched && addr.street.hasError('required')">Obavezno polje!</mat-error>
+          @if (addr.street.touched && addr.street.hasError('required')) {<mat-error>Obavezno polje!</mat-error>}
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <mat-label>Broj</mat-label>
           <input matInput formControlName="number" />
-          <mat-error *ngIf="addr.number.touched && addr.number.hasError('required')">Obavezno polje!</mat-error>
-          <mat-error *ngIf="addr.number.touched && addr.number.hasError('pattern')">Broj mora biti u formatu 12 ili 12a.</mat-error>
+          @if (addr.number.touched && addr.number.hasError('required'))
+          {<mat-error>Obavezno polje!</mat-error>}
+          @if (addr.number.touched && addr.number.hasError('pattern'))
+          {<mat-error>Broj mora biti u formatu 12 ili 12a.</mat-error>}
         </mat-form-field>
       </div>
 
@@ -75,4 +81,3 @@
     </form>
   </div>
 </div>
-

@@ -5,8 +5,8 @@
     <mat-form-field appearance="outline">
       <mat-label>Email</mat-label>
       <input matInput type="email" formControlName="email" />
-      <mat-error *ngIf="f.email.touched && f.email.hasError('required')">Required</mat-error>
-      <mat-error *ngIf="f.email.touched && f.email.hasError('email')">Invalid email</mat-error>
+      @if (f.email.touched && f.email.hasError('required')) {<mat-error>Required</mat-error>}
+      @if (f.email.touched && f.email.hasError('email')) {<mat-error>Invalid email</mat-error>}
     </mat-form-field>
 
     <mat-form-field appearance="outline">
@@ -15,8 +15,8 @@
       <button mat-icon-button matSuffix type="button" (click)="hidePw.set(!hidePw())" aria-label="Toggle password visibility">
         <mat-icon>{{ hidePw() ? 'visibility' : 'visibility_off' }}</mat-icon>
       </button>
-      <mat-error *ngIf="f.password.touched && f.password.hasError('required')">Required</mat-error>
-      <mat-error *ngIf="f.password.touched && f.password.hasError('minlength')">Min 8 characters</mat-error>
+      @if (f.password.touched && f.password.hasError('required')) {<mat-error>Required</mat-error>}
+      @if (f.password.touched && f.password.hasError('minlength')) {<mat-error>Min 8 characters</mat-error>}
     </mat-form-field>
 
     <mat-checkbox formControlName="remember">Remember me</mat-checkbox>
