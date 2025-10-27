@@ -37,7 +37,7 @@ export class Cart implements OnInit, AfterViewInit {
   ngOnInit() {
     this.dataSource.data = this.cartService.getItems()
     this.dataSource.filterPredicate = (data: ToyModel, filter: string) =>
-      data.name.toLocaleLowerCase().includes(filter) || data.description.toLowerCase().includes(filter)
+      data.name.toLowerCase().includes(filter) || data.description.toLowerCase().includes(filter)
   }
 
   ngAfterViewInit() {

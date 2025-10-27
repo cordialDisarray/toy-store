@@ -32,6 +32,22 @@ input.mat-mdc-input-element {
     padding: 0.5rem;
 }
 
+.chip-list mat-chip-listbox>div.mdc-evolution-chip-set__chips {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.chip-list mat-chip-option button.mdc-evolution-chip__action,
+.mdc-evolution-chip__text-label,
+.mat-mdc-chip-action-label {
+    width: 100%;
+}
+
+.chip-list mat-chip-option .mdc-evolution-chip__graphic {
+    margin-right: 0.3rem;
+}
+
 .button {
     background-color: #F45296;
     color: #FFEFC0;
@@ -84,5 +100,13 @@ input.mat-mdc-input-element {
     transform: translateY(1.5px);
     transition: transform 0.3s ease, background-color 0.5 ease;
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}

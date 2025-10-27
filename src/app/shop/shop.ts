@@ -44,16 +44,17 @@ export class Shop implements OnInit {
 
   showTypes = false
   showAgeGroups = false
+  showPriceRange = false
+  showGender = false
 
   typeControl = new FormControl<TypeModel[]>([])
-  genderControl = new FormControl<string>('any')
+  genderControl = new FormControl<string>('svi')
   ageGroupControl = new FormControl<string[]>([])
   minPriceControl = new FormControl<number | null>(null)
   maxPriceControl = new FormControl<number | null>(null)
   searchControl = new FormControl<string>('')
   sortControl = new FormControl<string>('name')
-  sortDirectionControl = new FormControl<'asc' | 'desc'>('asc')
-
+  sortDirectionControl = new FormControl<'rast' | 'opad'>('rast')
 
   constructor(
     private cartService: CartService,
@@ -103,15 +104,15 @@ export class Shop implements OnInit {
     const minPrice = this.minPriceControl.value
     const maxPrice = this.maxPriceControl.value
 
-    const searchTerm = (this.searchControl.value || '').toLocaleLowerCase()
+    const searchTerm = (this.searchControl.value || '').toLowerCase()
 
     let result = this.toys.filter(toy => {
       const matchesType = selectedTypeIds.length === 0 || (toy.type && selectedTypeIds.includes(toy.type.typeId))
-      const matchesGender = selectedGender === 'any' || toy.targetGroup === selectedGender
+      const matchesGender = selectedGender === 'svi' || toy.targetGroup === selectedGender
       const matchesAge = selectedAges.length === 0 || (toy.ageGroup && selectedAges.includes(toy.ageGroup.name))
       const matchesMinPrice = minPrice == null || toy.price >= minPrice
       const matchesMaxPrice = maxPrice == null || toy.price <= maxPrice
-      const matchesSearch = toy.name.toLocaleLowerCase().includes(searchTerm)
+      const matchesSearch = toy.name.toLowerCase().includes(searchTerm)
 
       return matchesType && matchesGender && matchesAge && matchesMinPrice && matchesMaxPrice && matchesSearch
     })
@@ -121,11 +122,15 @@ export class Shop implements OnInit {
 
     if (sortItem) {
       result.sort((a, b) => {
+        console.log(a)
+        console.log(b)
         const valA = this.getNestedValue(a, sortItem)
         const valB = this.getNestedValue(b, sortItem)
+        console.log(valA)
+        console.log(valB)
 
-        if (valA < valB) return sortDir === 'asc' ? -1 : 1
-        if (valA > valB) return sortDir === 'asc' ? 1 : -1
+        if (valA < valB) return sortDir === 'rast' ? -1 : 1
+        if (valA > valB) return sortDir === 'rast' ? 1 : -1
 
         return 0
       })
@@ -140,13 +145,13 @@ export class Shop implements OnInit {
 
   toggleSortDirection() {
     const current = this.sortDirectionControl.value
-    this.sortDirectionControl.setValue(current === 'asc' ? 'desc' : 'asc')
+    this.sortDirectionControl.setValue(current === 'rast' ? 'opad' : 'rast')
     this.applyFilters()
   }
 
   resetFilters() {
     this.typeControl.setValue([])
-    this.genderControl.setValue('any')
+    this.genderControl.setValue('svi')
     this.ageGroupControl.setValue([])
     this.minPriceControl.setValue(null)
     this.maxPriceControl.setValue(null)

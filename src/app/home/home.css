@@ -4,11 +4,10 @@
     justify-content: center;
     background-image: url("/BearBackground.svg");
     background-color: #ADAAC6;
-    padding-top: 1.4rem;
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center bottom;
-    aspect-ratio: 1530 / 348;
+    aspect-ratio: 1530 / 370;
     overflow: hidden;
 }
 
@@ -18,6 +17,7 @@ h1 {
     font-size: 3.5vw;
     color: #FFEFC0;
     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    padding: 0.2rem;
 }
 
 #spacer {
@@ -32,6 +32,7 @@ h1 {
     flex-direction: column;
     align-items: center;
     width: 100%;
+    gap: clamp(1rem, 2vw, 10rem);
 }
 
 #showcase {
@@ -51,4 +52,14 @@ h1 {
 #carousel {
     background-color: white;
     text-align: center;
+}
+
+#age-buttons{
+    display: flex;
+    gap: 2.7rem;
+    padding: 0.2rem;
+}
+
+#age-buttons img{
+    width: 8vw;
 }

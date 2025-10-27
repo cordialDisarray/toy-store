@@ -2,7 +2,7 @@
     <div id="filter-container">
         <div class="outer-filter-style">
             <button class="toggle-button" (click)="showTypes = !showTypes">
-                <span class="filter-label"><strong>Tip</strong></span>
+                <span class="filter-label">Tip</span>
                 <span [class.rotated]="showTypes"><mat-icon>keyboard_arrow_down</mat-icon></span>
             </button>
 
@@ -20,17 +20,24 @@
         </div>
 
         <div id="gender-radio" class="outer-filter-style">
-            <span class="filter-label"><strong>Pol</strong></span>
-            <mat-radio-group [formControl]="genderControl">
+            <button class="toggle-button" (click)="showGender = !showGender">
+                <span class="filter-label">Pol</span>
+                <span [class.rotated]="showTypes"><mat-icon>keyboard_arrow_down</mat-icon></span>
+            </button>
+
+            @if (showGender) {
+            <mat-radio-group [formControl]="genderControl" class="chip-list">
                 <mat-radio-button value="svi">Svi</mat-radio-button>
                 <mat-radio-button value="devojčica">Devojčica</mat-radio-button>
                 <mat-radio-button value="dečak">Dečak</mat-radio-button>
             </mat-radio-group>
+            }
+
         </div>
 
         <div class="outer-filter-style">
             <button class="toggle-button" (click)="showAgeGroups = !showAgeGroups">
-                <span class="filter-label"><strong>Uzrast</strong></span>
+                <span class="filter-label">Uzarst</span>
                 <span [class.rotated]="showAgeGroups"><mat-icon>keyboard_arrow_down</mat-icon></span>
             </button>
 
@@ -47,8 +54,13 @@
         </div>
 
         <div class="outer-filter-style">
-            <span class="filter-label"><strong>Cena</strong></span>
-            <div class="price-filter">
+            <button class="toggle-button" (click)="showPriceRange = !showPriceRange">
+                <span class="filter-label">Cena</span>
+                <span [class.rotated]="showTypes"><mat-icon>keyboard_arrow_down</mat-icon></span>
+            </button>
+
+            @if (showPriceRange) {
+            <div class="price-filter chip-list">
                 <div id="min-price-filter"><span class="price-label">Min</span>
                     <input type="number" class="price-input" step="100" [formControl]="minPriceControl"
                         placeholder="npr. 1000">
@@ -59,9 +71,11 @@
                         placeholder="npr. 10000">
                 </div>
             </div>
+            }
+
         </div>
 
-        <button class="button" (click)="resetFilters()">Reset</button>
+        <button matButton="filled" (click)="resetFilters()">Resetuj</button>
     </div>
 
     <div id="item-container">
@@ -87,8 +101,8 @@
                 </mat-form-field>
             </div>
 
-            <button mat-flat-button (click)="toggleSortDirection()">
-                {{ sortDirectionControl.value === 'asc' ? 'Asc' : 'Desc'}}
+            <button matButton="filled" (click)="toggleSortDirection()">
+                {{ sortDirectionControl.value === 'rast' ? 'Opad.' : 'Rast.'}}
             </button>
         </div>
 
@@ -115,7 +129,7 @@
                     <div class="price-container">
                         <span class="price">{{toy.price}} RSD</span>
 
-                        <button class="buy-btn button" type="button" (click)="addToCart(toy)">
+                        <button matFab extended (click)="addToCart(toy)">
                             <mat-icon>add_shopping_cart</mat-icon>
                             <span>Kupi</span>
                         </button>
