@@ -1,3 +1,8 @@
+.page {
+    height: 100vh;
+    overflow: hidden;
+}
+
 #welcome {
     display: flex;
     align-items: center;
@@ -7,8 +12,11 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center bottom;
-    aspect-ratio: 1530 / 370;
+    aspect-ratio: 1530 / 345;
     overflow: hidden;
+    flex-shrink: 0;
+    flex-grow: 0;
+    flex-basis: auto;
 }
 
 h1 {
@@ -36,7 +44,6 @@ h1 {
 }
 
 #showcase {
-    flex: 1 1 55%;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -44,22 +51,218 @@ h1 {
 }
 
 #carousel-section {
+    position: relative;
     display: flex;
     align-items: center;
-    margin: 3rem;
+    justify-content: center;
+    margin-top: 1.8rem;
 }
 
 #carousel {
-    background-color: white;
+    background-color: #eeeff6f3;
     text-align: center;
+    border-radius: 1.8rem;
+    position: relative;
+    box-shadow: 0px 2px 7px rgba(10, 9, 39, 0.162);
 }
 
-#age-buttons{
+#age-buttons {
     display: flex;
     gap: 2.7rem;
     padding: 0.2rem;
 }
 
-#age-buttons img{
+#age-buttons img {
     width: 8vw;
+}
+
+.age-icon {
+    cursor: pointer;
+    transition: transform 0.2s ease-out, filter 0.2s ease-in-out;
+}
+
+.age-icon:hover {
+    filter: brightness(1.01) drop-shadow(0px 7px 5px rgba(22, 13, 26, 0.075));
+    transform: scale(1.03) translateY(-5px);
+}
+
+#carousel mat-card-content {
+    display: flex;
+    gap: 1.3rem;
+    padding: 0.3rem 2.6rem 2.4rem 2.6rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+#best-toys-title {
+    margin: 1rem;
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: #6d7aa2e7;
+}
+
+.toy-card {
+    width: 170px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    background-color: #dbdde8c6;
+}
+
+.toy-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 7px 4.5px rgba(0, 0, 0, 0.12);
+}
+
+.toy-card mat-card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem !important;
+}
+
+.toy-card img {
+    width: 120px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.toy-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    margin-bottom: 9px;
+}
+
+.stars {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+
+.star-icon {
+    font-size: 20px;
+    width: 18px;
+    height: 18px;
+    color: #e9c15c;
+}
+
+.rating-text {
+    font-size: 0.80rem;
+    color: #666;
+    margin-left: 4px;
+}
+
+.no-reviews {
+    font-size: 0.85rem;
+    color: #999;
+    font-style: italic;
+}
+
+.price {
+    font-weight: 500;
+    color: #5f7289e8;
+    font-size: 1.04rem;
+}
+
+.loading, .no-toys {
+    padding: 2rem;
+    color: #666;
+    font-size: 1rem;
+}
+
+.round-icon-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-60%);
+    z-index: 10;
+    background: #ec679f;
+    border-radius: 50%;
+    width: 55px;
+    height: 55px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffefc0;
+    box-shadow: none !important;
+}
+
+#carousel-section .round-icon-button:first-of-type {
+    left: -30px;
+}
+
+#carousel-section .round-icon-button:last-of-type {
+    right: -30px;
+}
+
+#shop-btn {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 9rem;
+  height: 4rem;
+  margin: 1.8rem 5.4rem 0rem 0rem;
+}
+
+#shop-btn img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transition: transform 1s ease, opacity 1s ease;
+}
+
+#squiggle {
+  transform: translate(-50%, -50%) scale(1) rotate(0deg);
+  opacity: 1;
+}
+
+#squiggle-yellow {
+  transform: translate(-50%, -50%) scale(0.1) rotate(-180deg);
+  opacity: 0;
+}
+
+#shop-btn:hover #squiggle {
+  transform: translate(-50%, -50%) scale(0.1) rotate(180deg);
+  opacity: 0;
+}
+
+#shop-btn:hover #squiggle-yellow {
+  transform: translate(-50%, -50%) scale(1) rotate(0deg);
+  opacity: 1;
+  animation: wiggle 1.27s ease-in-out infinite;
+}
+
+@keyframes wiggle {
+  0%, 100% { transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+  20%      { transform: translate(-50%, -50%) scale(1) rotate(8deg); }
+  40%      { transform: translate(-50%, -50%) scale(1) rotate(-8deg); }
+  60%      { transform: translate(-50%, -50%) scale(1) rotate(6deg); }
+  80%      { transform: translate(-50%, -50%) scale(1) rotate(-6deg); }
+}
+
+#shop-btn button {
+  position: absolute;
+  cursor: pointer;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 10rem;
+  height: 3rem;
+  font-size: 20px;
+  z-index: 1;
+}
+
+.toy-title {
+    font-size: 1.2rem;
+    padding: 0.5rem;
+    max-width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    color: #6b7698ee;
+    font-weight: 500;
 }

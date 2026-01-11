@@ -26,6 +26,11 @@
         @if (f.email.touched && f.email.hasError('email')) {<mat-error>Vaša email adresa nije tačna!</mat-error>}
       </mat-form-field>
 
+      <mat-form-field appearance="outline">
+        <mat-label>Telefon</mat-label>
+        <input matInput formControlName="phone" />
+      </mat-form-field>
+
       <div formGroupName="passwordGroup" class="row">
         <mat-form-field appearance="outline">
           <mat-label>Lozinka</mat-label>
@@ -75,8 +80,23 @@
         </mat-form-field>
       </div>
 
+      <mat-form-field appearance="outline">
+        <mat-label>Omiljene vrste igračaka</mat-label>
+        @if (loadingTypes()) {
+        <mat-select disabled>
+          <mat-option>Učitavanje...</mat-option>
+        </mat-select>
+        } @else {
+        <mat-select formControlName="favouriteTypes" multiple>
+          @for (type of types(); track type.typeId) {
+          <mat-option [value]="type.typeId">{{ type.name }}</mat-option>
+          }
+        </mat-select>
+        }
+      </mat-form-field>
+
       <button mat-raised-button color="primary" type="submit" [disabled]="submitting() || form.invalid">
-        {{ submitting() ? 'Submitting...' : 'Create account' }}
+        {{ submitting() ? 'Pravljenje naloga...' : 'Napravi nalog' }}
       </button>
     </form>
   </div>

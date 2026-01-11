@@ -1,47 +1,77 @@
-<mat-card>
-    <mat-card-header>
-        <mat-card-title>Your cart</mat-card-title>
-    </mat-card-header>
+<div class="cart-page">
+  <h1>Korpa</h1>
 
-    <mat-card-content>
-        <mat-form-field>
-            <mat-label>Filter</mat-label>
-            <input matInput (keyup)="applyFilter($event)" placeholder="Slagalica, figura..." #input>
-        </mat-form-field>
+  @if (cartItems.length === 0) {
+  <div class="empty-cart">
+    <mat-icon>shopping_cart</mat-icon>
+    <p>Vaša korpa je prazna</p>
+    <button mat-raised-button color="primary" (click)="goToShop()">
+      <mat-icon>store</mat-icon>
+      Pregledaj igračke
+    </button>
+  </div>
+  } @else {
+  <div class="cart-content">
+    <div class="cart-items">
+      @for (item of cartItems; track item.toy.toyId; let i = $index) {
+      <div class="cart-item">
+        <img [src]="item.toy.imageUrl" [alt]="item.toy.name" class="item-image">
 
-        <div >
-            <table mat-table [dataSource]="dataSource" matSort>
-
-                <ng-container matColumnDef="item">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Item </th>
-                    <td mat-cell *matCellDef="let row">
-                        <div style="display: flex; align-items: center;">
-                            <img [src]="row.imageUrl" alt="{{row.name}}" width="50" style="margin-right: 10px;">
-                            <div>
-                                <div><strong>{{row.name}}</strong></div>
-                                <div style="font-size: 12px;">{{row.description}}</div>
-                            </div>
-                        </div>
-                    </td>
-                </ng-container>
-
-                <ng-container matColumnDef="price">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Price </th>
-                    <td mat-cell *matCellDef="let row"> {{row.price}} RSD </td>
-                </ng-container>
-
-                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-
-                <tr class="mat-row" *matNoDataRow>
-                    <td class="mat-cell" colspan="2">No data matching the filter "{{input.value}}"</td>
-                </tr>
-            </table>
-
-              <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
-
+        <div class="item-details" [routerLink]="['/toy', item.toy.toyId]">
+          <h3>{{ item.toy.name }}</h3>
+          <p class="item-description">{{ item.toy.description }}</p>
+          <div class="price-wrapper">
+            <p class="item-price">{{ item.toy.price }} RSD</p>
+          </div>
         </div>
 
+        <div class="item-quantity">
+          <button mat-icon-button (click)="decreaseQuantity(i)" [disabled]="item.quantity <= 1">
+            <mat-icon>remove</mat-icon>
+          </button>
+          <span class="quantity">{{ item.quantity }}</span>
+          <button mat-icon-button (click)="increaseQuantity(i)">
+            <mat-icon>add</mat-icon>
+          </button>
+        </div>
 
-    </mat-card-content>
-</mat-card>
+        <div class="item-subtotal">
+          <span>{{ item.toy.price * item.quantity }} RSD</span>
+        </div>
+
+        <mat-icon (click)="removeItem(i); $event.stopPropagation()" class="remove-btn">
+          delete
+        </mat-icon>
+      </div>
+      }
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div class="cart-summary">
+      <div class="summary-row">
+        <span>Broj artikala:</span>
+        <span>{{ itemCount() }}</span>
+      </div>
+      <div class="summary-row total">
+        <span>Ukupno:</span>
+        <span class="total-price">{{ totalPrice() }} RSD</span>
+      </div>
+
+      <div class="cart-actions">
+        <button mat-stroked-button color="warn" (click)="clearCart()">
+          <mat-icon>remove_shopping_cart</mat-icon>
+          Isprazni korpu
+        </button>
+        <button mat-raised-button color="primary" (click)="checkout()" [disabled]="checkingOut()">
+          @if (checkingOut()) {
+          Naručivanje...
+          } @else {
+          <span id="buy-btn"><mat-icon>shopping_bag</mat-icon>Naruči</span>
+          }
+        </button>
+      </div>
+    </div>
+  </div>
+  }
+</div>

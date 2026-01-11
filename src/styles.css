@@ -1,4 +1,3 @@
-/* You can add global styles to this file, and also import other style files */
 
 html,
 body {
@@ -46,6 +45,51 @@ input.mat-mdc-input-element {
 
 .chip-list mat-chip-option .mdc-evolution-chip__graphic {
     margin-right: 0.3rem;
+}
+
+.item-toy-card.custom-rounded-styling .description-text {
+  text-align: center;
+  display: block;
+}
+
+.item-toy-card.custom-rounded-styling .price-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.item-toy-card.custom-rounded-styling .mat-mdc-card-title {
+    font-size: 20px;
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.item-toy-card.custom-rounded-styling .description-text {
+    margin-top: 5px;
+    font-size: 13px;
+    line-height: 1.2;
+    display: block;
+    height: 2.5rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.item-toy-card.custom-rounded-styling .mat-mdc-card-header {
+  justify-content: center;
+}
+
+.item-toy-card.custom-rounded-styling .mat-mdc-card-title {
+  text-align: center;
+  width: 100%;
+  display: block;
+}
+
+.toy-card .mat-mdc-card-header .mat-mdc-card-header-text {
+  width: 100%;
+  display: block;
+  margin: 0 auto;
 }
 
 .button {
